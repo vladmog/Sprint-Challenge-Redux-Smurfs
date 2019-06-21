@@ -21,3 +21,50 @@
   There is no need for 'combineReducers' in this project.
   Components can then read your store as, `state` and not `state.fooReducer`.
 */
+import {GET_SMURFS, ADD_SMURF, DELETE_SMURF} from '../actions';
+
+let defaultState = {
+  smurfs: [],
+  fetchingSmurfs: false,
+  addingSmurf: false,
+  updatingSmurf: false,
+  deletingSmurf: false,
+  error: null
+}
+
+export default function rootReducer (state = defaultState, action) {
+  switch(action.type){
+    case GET_SMURFS:
+      return {
+        ...state,
+        smurfs: action.payload,
+        fetchingSmurfs: false,
+        addingSmurf: false,
+        updatingSmurf: false,
+        deletingSmurf: false,
+        error: null
+      }
+    case ADD_SMURF:
+      return {
+        ...state,
+        smurfs: action.payload,
+        fetchingSmurfs: false,
+        addingSmurf: false,
+        updatingSmurf: false,
+        deletingSmurf: false,
+        error: null
+      }
+    case DELETE_SMURF:
+      return {
+        ...state,
+        smurfs: action.payload,
+        fetchingSmurfs: false,
+        addingSmurf: false,
+        updatingSmurf: false,
+        deletingSmurf: false,
+        error: null
+      }
+    default:
+      return state
+  }
+}

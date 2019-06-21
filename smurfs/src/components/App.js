@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import {connect} from 'react-redux';
+import {getSmurfs, addSmurf, deleteSmurf} from '../actions'
 /*
  to wire this component up you're going to need a few things.
  I'll let you do this part on your own. 
@@ -7,16 +9,86 @@ import './App.css';
  `How do I ensure that my component links the state to props?`
  */
 class App extends Component {
+
+  state ={
+    name: '',
+    age: '',
+    height: ''
+  }
+
+  componentDidMount(){
+    this.props.getSmurfs()
+  }
+
+  changeHandler = e => {
+    e.preventDefault()
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  submitHandler = e => {
+    e.preventDefault()
+    let smurf = {
+      name: this.state.name,
+      age: this.state.age,
+      height: this.state.height
+    }
+    this.props.addSmurf(smurf);
+    this.setState({
+      name: '',
+      age: '',
+      height: ''
+    })
+  }
+
+  deleteHandler = id => {
+    this.props.deleteSmurf(id)
+  }
+
   render() {
     return (
       <div className="App">
-        <h1>SMURFS! 2.0 W/ Redux</h1>
-        <div>Welcome to your Redux version of Smurfs!</div>
-        <div>Start inside of your `src/index.js` file!</div>
-        <div>Have fun!</div>
+        <form onSubmit = {this.submitHandler}>
+          <input 
+            name = "name"
+            placeholder = "name"
+            value = {this.state.name}
+            onChange = {this.changeHandler}
+          />
+          <input 
+            name = "age"
+            placeholder = "age"
+            value = {this.state.age}
+            onChange = {this.changeHandler}
+          />
+          <input 
+            name = "height"
+            placeholder = "height"
+            value = {this.state.height}
+            onChange = {this.changeHandler}
+          />
+          <button>SUBMIT!</button>
+        </form>
+        <div className = "mapOverArray">
+          {this.props.smurfs.map(smurf => {
+            return(
+              <div key = {Math.random()}>
+                <h1>{smurf.name}</h1>
+                <button onClick = {() => this.deleteHandler(smurf.id)}>X</button>
+              </div>
+            )
+          })}
+        </div>
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps (state) {
+  return {
+    smurfs: state.smurfs
+  }
+}
+
+export default connect(mapStateToProps, { getSmurfs, addSmurf, deleteSmurf })(App);
