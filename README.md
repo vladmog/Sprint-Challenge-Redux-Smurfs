@@ -32,6 +32,7 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 
   <!-- store -->
     The store is a "global state" that can be accessed by other components via mapStateToProps in conjunction with connect.
+    Known as a 'single source of truth' because it maintains data/states utilized by the entire application
 
 
 - [ ] What is the difference between Application state and Component state? When would be a good time to use one over the other?
