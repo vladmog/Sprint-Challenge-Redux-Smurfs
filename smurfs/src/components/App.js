@@ -89,6 +89,8 @@ class App extends Component {
             return(
               <div key = {Math.random()}>
                 <h1>{smurf.name}</h1>
+                <h3>{smurf.age}</h3>
+                <h3>{smurf.height}</h3>
                 <button onClick = {() => this.deleteHandler(smurf.id)}>X</button>
                 <button onClick = {() => this.updateHandler(smurf.id)}>Update</button>
               </div>
